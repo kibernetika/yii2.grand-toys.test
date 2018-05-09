@@ -3,12 +3,15 @@
 namespace app\controllers;
 
 use app\models\AccountActivation;
+use app\models\Goods;
+use app\models\GoodsSearch;
 use app\models\RegForm;
 use app\models\ResetPasswordForm;
 use app\models\SendEmailForm;
 use app\models\User;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -73,7 +76,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new GoodsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index',[ 'dataProvider' => $dataProvider, 'searchModel' => $searchModel,]);
     }
 
     public function actionReg()
@@ -88,7 +93,7 @@ class SiteController extends Controller
                     endif;
                 else:
                     if($model->sendActivationEmail($user)):
-                        Yii::$app->session->setFlash('success', 'Activation link send on your email <strong>'.Html::encode($user->email).'</strong> (проверьте папку спам).');
+                        Yii::$app->session->setFlash('success', 'Activation link send on your email <strong>'.Html::encode($user->email).'</strong> (check spam folder).');
                     else:
                         Yii::$app->session->setFlash('error', 'Error. Email not send.');
                         Yii::error('Email not send.');

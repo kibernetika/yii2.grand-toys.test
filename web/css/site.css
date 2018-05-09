@@ -122,3 +122,7 @@ nav+div form{
     margin-right: auto;
     margin-left: auto;
 }
+
+.modal-content{
+    padding: 20px;
+}

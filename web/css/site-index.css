@@ -1,0 +1,10 @@
+.goods-search>form{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.goods-search>form .form-group{
+    padding: 5px 5px 5px 0px;
+    vertical-align: center;
+}

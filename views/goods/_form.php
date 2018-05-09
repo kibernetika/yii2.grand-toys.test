@@ -24,15 +24,30 @@ $this->registerJs(
     <?php yii\widgets\Pjax::begin(['id' => 'new_goods']) ?>
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_category')->textInput() ?>
+    <?
+        $category = \app\models\Category::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($category,'id_category','name');
+        $params = [
+            'prompt' => 'Select category...'
+        ];
+        echo $form->field($model, 'category')->dropDownList($items,$params);
+    ?>
 
-    <?= $form->field($model, 'id_brand')->textInput() ?>
+    <?
+        $brand = \app\models\Brand::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($brand,'id_brand','name');
+        $params = [
+            'prompt' => 'Select category...'
+        ];
+        echo $form->field($model, 'brand')->dropDownList($items,$params);
+    ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'code')->textInput() ?>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'price',
+        ['inputOptions' => ['value' => Yii::$app->formatter->asDecimal($model->price)]]) ?>
 
     <?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
 
