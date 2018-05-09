@@ -34,15 +34,24 @@ AppAsset::register($this);
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container-fluid'],
+//        'innerContainerOptions' => ['class' => 'container-fluid'],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => array_filter([
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Catalog', 'url' => ['/site/index']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Registration', 'url' => ['/site/reg']] :
-                ['label' => 'Admin', 'url' => ['/site/admin']],
+                [
+                    'label' => 'Admin',
+                    'items' => [
+                        ['label' => 'Goods', 'url' => '/goods/index'],
+                        '<li class="divider"></li>',
+                        '<li class="dropdown-header">Reference tables</li>',
+                        ['label' => 'Categories', 'url' => '/category/index'],
+                        ['label' => 'Brand', 'url' => '/brand/index'],
+                    ],
+                ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -60,7 +69,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container-fluid">
+    <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -70,7 +79,7 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="container-fluid">
+    <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>

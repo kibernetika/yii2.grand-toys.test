@@ -21,14 +21,14 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'password')->passwordInput() ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('Registration', ['class' => 'btn btn-primary']) ?>
         </div>
     <?php ActiveForm::end(); ?>
 
     <?php
     if($model->scenario === 'emailActivation'):
     ?>
-    <i>*Please check your e-mail</i>
+<!--    <i>*Please check your e-mail</i>-->
     <?php
     endif;
     ?>
