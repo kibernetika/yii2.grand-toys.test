@@ -20,8 +20,8 @@ use yii\widgets\ActiveForm;
     <div class="form-group">
         <?= Html::submitButton('Enter', ['class' => 'btn btn-primary']) ?>
     </div>
+    <?= Html::a('Change password?', ['/site/send-email']) ?>
     <?php ActiveForm::end(); ?>
 
-    <?= Html::a('Change password?', ['/site/send-email']) ?>
 
 </div><!-- main-login -->

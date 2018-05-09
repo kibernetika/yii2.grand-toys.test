@@ -113,3 +113,12 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.modal-content .container{
+    max-width: 480px;
+}
+
+nav+div form{
+    margin-right: auto;
+    margin-left: auto;
+}

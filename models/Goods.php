@@ -38,11 +38,12 @@ class Goods extends \yii\db\ActiveRecord
     {
         return [
             [['id_category', 'id_brand', 'code'], 'integer'],
+            [['id_category', 'name', 'code', 'price'], 'required'],
             [['price', 'width', 'height', 'lenght'], 'number'],
             [['name'], 'string', 'max' => 250],
             [['color'], 'string', 'max' => 12],
-            [['id_brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['id_brand' => 'id_brand']],
-            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['id_category' => 'id_category']],
+            [['id_brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['id_brand' => 'id_brand']],
+            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['id_category' => 'id_category']],
         ];
     }
 
@@ -70,7 +71,7 @@ class Goods extends \yii\db\ActiveRecord
      */
     public function getBrand()
     {
-        return $this->hasOne(Brand::className(), ['id_brand' => 'id_brand']);
+        return $this->hasOne(Brand::class, ['id_brand' => 'id_brand']);
     }
 
     /**
@@ -78,7 +79,15 @@ class Goods extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::className(), ['id_category' => 'id_category']);
+        return $this->hasOne(Category::class, ['id_category' => 'id_category']);
+    }
+
+    /**
+     * @param int $ovymiru
+     */
+    public function setCategory()
+    {
+        return Category::findOne($this->id_category)->id_category;
     }
 
     /**

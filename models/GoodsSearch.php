@@ -12,6 +12,9 @@ use app\models\Goods;
  */
 class GoodsSearch extends Goods
 {
+    public $category;
+    public $brand;
+
     /**
      * {@inheritdoc}
      */
@@ -19,7 +22,7 @@ class GoodsSearch extends Goods
     {
         return [
             [['id_goods', 'id_category', 'id_brand', 'code'], 'integer'],
-            [['name', 'color'], 'safe'],
+            [['name', 'color', 'category', 'brand'], 'safe'],
             [['price', 'width', 'height', 'lenght'], 'number'],
         ];
     }
@@ -43,12 +46,23 @@ class GoodsSearch extends Goods
     public function search($params)
     {
         $query = Goods::find();
-
+        $query->joinWith(['category']);
+        $query->joinWith(['brand']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['category'] = [
+            'asc' => ['id_category' => SORT_ASC],
+            'desc' => ['id_category' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['brand'] = [
+            'asc' => ['brand.name' => SORT_ASC],
+            'desc' => ['brand.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -61,8 +75,8 @@ class GoodsSearch extends Goods
         // grid filtering conditions
         $query->andFilterWhere([
             'id_goods' => $this->id_goods,
-            'id_category' => $this->id_category,
-            'id_brand' => $this->id_brand,
+            'goods.id_category' => $this->id_category,
+            'goods.id_brand' => $this->id_brand,
             'code' => $this->code,
             'price' => $this->price,
             'width' => $this->width,
@@ -70,9 +84,10 @@ class GoodsSearch extends Goods
             'lenght' => $this->lenght,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'color', $this->color]);
-
+        $query->andFilterWhere(['like', 'goods.name', $this->name])
+            ->andFilterWhere(['like', 'color', $this->color])
+            ->andFilterWhere(['like', 'category.name', $this->category])
+            ->andFilterWhere(['like', 'brand.name', $this->brand]);
         return $dataProvider;
     }
 }
