@@ -32,7 +32,7 @@ $this->registerJs(
         $params = [
             'prompt' => 'Select category...'
         ];
-        echo $form->field($model, 'category')->dropDownList($items,$params);
+        echo $form->field($model, 'id_category')->dropDownList($items,$params);
     ?>
 
     <?
@@ -41,7 +41,7 @@ $this->registerJs(
         $params = [
             'prompt' => 'Select brand...'
         ];
-        echo $form->field($model, 'brand')->dropDownList($items,$params);
+        echo $form->field($model, 'id_brand')->dropDownList($items,$params);
     ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

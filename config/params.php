@@ -12,7 +12,7 @@ return [
         'suffix' => ' ₴',
         'affixesStay' => true,
         'thousands' => ' ',
-        'decimal' => '.',
+        'decimal' => ',',
         'precision' => 2,
         'allowZero' => false,
         'allowNegative' => false,

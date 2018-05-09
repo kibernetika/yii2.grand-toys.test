@@ -38,12 +38,12 @@ class Goods extends \yii\db\ActiveRecord
     {
         return [
             [['id_category', 'id_brand', 'code'], 'integer'],
-            [['id_category', 'name', 'code', 'price'], 'required'],
+            [['name', 'code'], 'required'],
             [['price', 'width', 'height', 'lenght'], 'number'],
             [['name'], 'string', 'max' => 250],
             [['color'], 'string', 'max' => 12],
-//            [['id_brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['id_brand' => 'id_brand']],
-//            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['id_category' => 'id_category']],
+            [['id_brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['id_brand' => 'id_brand']],
+            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['id_category' => 'id_category']],
         ];
     }
 
@@ -53,9 +53,9 @@ class Goods extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_goods' => 'Id Goods',
-            'id_category' => 'Id Category',
-            'id_brand' => 'Id Brand',
+            'id_goods' => 'Id_Goods',
+            'id_category' => 'Category',
+            'id_brand' => 'Brand',
             'name' => 'Name',
             'code' => 'Code',
             'price' => 'Price',
