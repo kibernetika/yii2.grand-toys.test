@@ -42,8 +42,8 @@ class Goods extends \yii\db\ActiveRecord
             [['price', 'width', 'height', 'lenght'], 'number'],
             [['name'], 'string', 'max' => 250],
             [['color'], 'string', 'max' => 12],
-            [['id_brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['id_brand' => 'id_brand']],
-            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['id_category' => 'id_category']],
+//            [['id_brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['id_brand' => 'id_brand']],
+//            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['id_category' => 'id_category']],
         ];
     }
 

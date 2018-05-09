@@ -64,14 +64,13 @@ class GoodsController extends BaseAdminController
      */
     public function actionCreate()
     {
-        $this->layout = 'main_modal';
         $model = new Goods();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['goods/index', 'id_goods' => $model->id_goods]);
+            return $this->redirect(['index']);
         }
 
-        return $this->renderAjax('create', [
+        return $this->render('create', [
             'model' => $model,
         ]);
     }

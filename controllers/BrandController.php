@@ -67,7 +67,7 @@ class BrandController extends BaseAdminController
         $model = new Brand();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_brand]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class BrandController extends BaseAdminController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_brand]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

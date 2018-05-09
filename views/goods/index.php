@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'label' => 'Create',
             'tag' => 'a',
             'data-target' => '#comm',
-            'href' => \yii\helpers\Url::to(['/goods/create']),
+            'href' => \yii\helpers\Url::to(['create']),
         ],
         'clientOptions' => false,
     ]);

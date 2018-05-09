@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
+use kartik\money\MaskMoney;
+use kartik\color\ColorInput;
 /* @var $this yii\web\View */
 /* @var $model app\models\Goods */
 /* @var $form yii\widgets\ActiveForm */
@@ -37,7 +39,7 @@ $this->registerJs(
         $brand = \app\models\Brand::find()->all();
         $items = \yii\helpers\ArrayHelper::map($brand,'id_brand','name');
         $params = [
-            'prompt' => 'Select category...'
+            'prompt' => 'Select brand...'
         ];
         echo $form->field($model, 'brand')->dropDownList($items,$params);
     ?>
@@ -46,10 +48,14 @@ $this->registerJs(
 
     <?= $form->field($model, 'code')->textInput() ?>
 
-    <?= $form->field($model, 'price',
-        ['inputOptions' => ['value' => Yii::$app->formatter->asDecimal($model->price)]]) ?>
+    <? echo $form->field($model, 'price')->widget(MaskMoney::class, [
+            'pluginOptions' => ['allowNegative' => false]
+        ]);
+    ?>
 
-    <?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'color')->widget(ColorInput::class, [
+        'options' => ['placeholder' => 'Select color ...'],
+    ]); ?>
 
     <?= $form->field($model, 'width')->textInput() ?>
 

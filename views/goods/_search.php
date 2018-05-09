@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\money\MaskMoney;
+use kartik\color\ColorInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\GoodsSearch */
@@ -33,7 +35,7 @@ use yii\widgets\ActiveForm;
         $brand = \app\models\Brand::find()->all();
         $items = \yii\helpers\ArrayHelper::map($brand,'id_brand','name');
         $params = [
-            'prompt' => 'Select category...'
+            'prompt' => 'Select brand...'
         ];
         echo $form->field($model, 'brand')->dropDownList($items,$params);
     ?>
@@ -42,9 +44,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'code') ?>
 
-    <?php  echo $form->field($model, 'price') ?>
+    <? echo $form->field($model, 'price')->widget(\kartik\money\MaskMoney::class, [
+        'pluginOptions' => ['allowNegative' => false]
+    ]);
+    ?>
 
-    <?php  echo $form->field($model, 'color') ?>
+    <?= $form->field($model, 'color')->widget(ColorInput::class, [
+        'options' => ['placeholder' => 'Select color ...'],
+    ]); ?>
 
     <?php  echo $form->field($model, 'width') ?>
 
