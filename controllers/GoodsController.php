@@ -8,6 +8,7 @@ use app\models\GoodsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * GoodsController implements the CRUD actions for Goods model.
@@ -67,6 +68,14 @@ class GoodsController extends BaseAdminController
         $model = new Goods();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $imageName = time();
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if(!empty($model->file))
+            {
+                $model->file->saveAs('uploads/goods_'.$imageName.'.'.$model->file->extension);
+                $model->photo = 'uploads/goods_'.$imageName.'.'.$model->file->extension;
+                $model->save();
+            }
             return $this->redirect(['index']);
         }
 
@@ -88,6 +97,14 @@ class GoodsController extends BaseAdminController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $imageName = time();
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if(!empty($model->file))
+            {
+                $model->file->saveAs('uploads/goods_'.$imageName.'.'.$model->file->extension);
+                $model->photo = 'uploads/goods_'.$imageName.'.'.$model->file->extension;
+                $model->save();
+            }
             return $this->redirect(['goods/index', 'id_goods' => $model->id_goods]);
         }
 
@@ -108,6 +125,21 @@ class GoodsController extends BaseAdminController
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeleteimage($id)
+    {
+        $model = $this->findModel($id);
+        $imgName = $model->photo;
+        unlink(Yii::getAlias('').$imgName);
+        $model->photo = null;
+        $model->update();
+        if (Yii::$app->request->isAjax)
+        {
+            return 'Deleted';
+        } else {
+            return $this->redirect(['update', 'id' => $model->id_goods]);
+        }
     }
 
     /**

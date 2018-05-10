@@ -86,6 +86,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'width',
             'height',
             'lenght',
+            [
+                'attribute' => 'photo',
+                'value' => function ($model) {
+                    return isset($model->photo) ? '+' : '-' ;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn', 'template'=>'{edit}',
                 'template' => '{view} {edit} {delete} ',

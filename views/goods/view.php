@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_goods',
-            'id_category',
-            'id_brand',
+            'category.name',
+            'brand.name',
             'name',
             'code',
             'price',
@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'width',
             'height',
             'lenght',
+            'photo'
         ],
     ]) ?>
 

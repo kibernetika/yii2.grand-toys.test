@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
@@ -24,7 +25,7 @@ $this->registerJs(
 <div class="goods-form">
 
     <?php yii\widgets\Pjax::begin(['id' => 'new_goods']) ?>
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?
         $category = \app\models\Category::find()->all();
@@ -62,6 +63,28 @@ $this->registerJs(
     <?= $form->field($model, 'height')->textInput() ?>
 
     <?= $form->field($model, 'lenght')->textInput() ?>
+
+    <? if(!empty($model->photo)){
+        echo Html::img(Url::home(true) . $model->photo, $options = ['class' => 'postImg', 'style' => ['width' => '180px']]);
+        echo Html::a('<span class="glyphicon glyphicon-trash"></span>', ['goods/deleteimage', 'id' => $model->id_goods], [
+            'onclick'=>
+                 "$.ajax({
+                 type:'POST',
+                 cache: false,
+                 url: '".Url::to(['goods/deleteimage', 'id' => $model->id_goods])."',
+                 success  : function(response) {
+                     $('.link-del').html(response);
+                     $('.postImg').remove();
+                 }
+                });
+            return false;
+         $('.postImg').remove(); 
+         ",
+         'class' => 'link-del'
+    ]);
+    } ?>
+
+    <?= $form->field($model, 'file')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ?

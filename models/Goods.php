@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "goods".
@@ -17,12 +18,16 @@ use Yii;
  * @property double $width
  * @property double $height
  * @property double $lenght
+ * @property double $photo
  *
  * @property Brand $brand
  * @property Category $category
  */
 class Goods extends \yii\db\ActiveRecord
 {
+
+    public $file;
+
     /**
      * {@inheritdoc}
      */
@@ -44,6 +49,7 @@ class Goods extends \yii\db\ActiveRecord
             [['color'], 'string', 'max' => 12],
             [['id_brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['id_brand' => 'id_brand']],
             [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['id_category' => 'id_category']],
+            [['file'], 'file'],
         ];
     }
 

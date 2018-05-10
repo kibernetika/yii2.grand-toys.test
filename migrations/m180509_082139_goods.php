@@ -29,6 +29,7 @@ class m180509_082139_goods extends Migration
                 'width'=> $this->float()->null()->defaultValue(null),
                 'height'=> $this->float()->null()->defaultValue(null),
                 'lenght'=> $this->float()->null()->defaultValue(null),
+                'photo'=> $this->char(250)->null()->defaultValue(null),
             ],$tableOptions
         );
         $this->createIndex('FK_goods_category','{{%goods}}',['id_category'],false);
